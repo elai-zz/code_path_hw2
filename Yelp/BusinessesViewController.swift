@@ -1,5 +1,6 @@
 //
 //  BusinessesViewController.swift
+//  A Yelp business list view controller
 //  Yelp
 //
 //  Created by Timothy Lee on 4/23/15.
@@ -25,7 +26,6 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         setUpSearchBar()
         
         Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
-            
             self.businesses = businesses
             if let businesses = businesses {
                 for business in businesses {
@@ -37,18 +37,6 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
             
             }
         )
-        
-        /* Example of Yelp search with more search options specified
-         Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
-         self.businesses = businesses
-         
-         for business in businesses {
-         print(business.name!)
-         print(business.address!)
-         }
-         }
-         */
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)-> Int {
@@ -69,7 +57,8 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         } else {
             cell.business = businesses[indexPath.row]
         }
-        self.isFiltered = false // resetting it now that it's done displaying filtered results
+        // After we have loaded the view with filtered (or unfiltered) results, we go back to the original state of beig unfiltered.
+        self.isFiltered = false
         return cell
     }
     
@@ -84,10 +73,16 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         filtersViewController.delegate = self
     }
     
-    func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
-        let categories = filters["categories"] as? [String]
+    // a function that is called by the FiltersViewController when filters are updated
+    func filtersViewController(filtersViewController: FiltersViewController,
+                               didUpdateFilters filters: Filters)
+    {
+        let categories = filters.selectedCategories
+        let sortMethod = filters.sortBy
+        let findDeals = filters.hasDeal
+        let radius = filters.distance
         
-        Business.searchWithTerm(term: "Restaurants", sort: nil, categories: categories, deals: nil)
+        Business.searchWithTerm(term: "Restaurants", sort: sortMethod.map { YelpSortMode(rawValue: $0) }!, categories: categories, deals: findDeals, radius: radius)
         { (businesses: [Business]?, error: Error?) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()
