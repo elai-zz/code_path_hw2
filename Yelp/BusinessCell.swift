@@ -1,5 +1,6 @@
 //
 //  BusinessCellTableViewCell.swift
+//  A cell in the business list table
 //  Yelp
 //
 //  Created by Minnie Lai on 10/21/16.
@@ -31,24 +32,25 @@ class BusinessCell: UITableViewCell {
         }
     }
     
+    // layoutSubviews to let AutoLayout know that name label should be
+    // wrapped at the preferredMaxLayoutWidth = width
     override func layoutSubviews() {
         super.layoutSubviews() // always call the parent function
+        self.contentView.layoutIfNeeded() // needed this method so that the initial view would load correctly
         nameLabel.preferredMaxLayoutWidth = nameLabel.frame.width
+
     }
     
     override func awakeFromNib() {
+        nameLabel.preferredMaxLayoutWidth = nameLabel.frame.width
         super.awakeFromNib()
-        // Initialization code
         posterImageView.layer.cornerRadius = 3
         posterImageView.clipsToBounds = true
-        nameLabel.preferredMaxLayoutWidth = nameLabel.frame.width
         
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }

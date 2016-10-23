@@ -1,5 +1,6 @@
 //
 //  SwitchCell.swift
+//  A cell in the Filters Table
 //  Yelp
 //
 //  Created by Minnie Lai on 10/21/16.
@@ -34,6 +35,8 @@ class SwitchCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    
+    // function that tells the delegate that the switch in this cell has changed
     func switchValueChanged() {
         delegate?.switchCell?(switchCell: self, didChangeValue: onSwitch.isOn)
         
