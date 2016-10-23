@@ -81,8 +81,14 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         let sortMethod = filters.sortBy
         let findDeals = filters.hasDeal
         let radius = filters.distance
+        var sortEnum : YelpSortMode?
+        if sortMethod != nil {
+            sortEnum = sortMethod.map {YelpSortMode(rawValue: $0)}!
+        } else {
+            sortEnum = nil
+        }
         
-        Business.searchWithTerm(term: "Restaurants", sort: sortMethod.map { YelpSortMode(rawValue: $0) }!, categories: categories, deals: findDeals, radius: radius)
+        Business.searchWithTerm(term: "Restaurants", sort: sortEnum, categories: categories, deals: findDeals, radius: radius)
         { (businesses: [Business]?, error: Error?) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()
