@@ -6,7 +6,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Yelp!-->
+        <!--Whelp!-->
         <scene sceneID="5L9-Uz-lNK">
             <objects>
                 <viewController id="2xI-yr-O5N" customClass="BusinessesViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
@@ -117,7 +117,7 @@
                             <constraint firstItem="q0N-Uh-Mvy" firstAttribute="top" secondItem="XhR-oz-92f" secondAttribute="top" id="qK1-gK-tdP"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Yelp!" id="6Qr-JI-N1z">
+                    <navigationItem key="navigationItem" title="Whelp!" id="6Qr-JI-N1z">
                         <barButtonItem key="leftBarButtonItem" title="Filters" id="sCq-e4-hAU">
                             <connections>
                                 <segue destination="vyf-Sw-fUN" kind="presentation" id="js3-ix-7Hc"/>
